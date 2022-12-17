@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+
+
+VERSION = '0.0.1'
+BUILD_DATE = '12/17/2022'
+
+import sys, os, traceback
+from traceback import StackSummary
+from functools import partial
+from decimal import Decimal as dec
+from math import tan
+from math import radians
+
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox,
+	QDialog, qApp, QProgressBar)
+
+#from libsegcalc import combo
+
+
+sys.dont_write_bytecode = True
+
+class MainWindow(QMainWindow):
+	def __init__(self):
+		super().__init__()
+		if os.path.split(sys.argv[0])[0] == '/usr/bin':
+			self.lib_path = '/usr/lib/libmesact'
+			self.firmware_path = '/usr/lib/libmesact'
+			self.image_path = '/usr/lib/libmesact'
+			self.docs_path = '/usr/lib/libmesact'
+			uic.loadUi(os.path.join(self.lib_path, 'segcalc.ui'), self)
+		else:
+			srcPath = os.path.split(os.path.realpath(sys.argv[0]))[0]
+			self.lib_path = os.path.join(srcPath, 'libmesact')
+			self.firmware_path = os.path.join(srcPath, 'firmware')
+			self.image_path = os.path.join(srcPath, 'images')
+			self.docs_path = os.path.join(srcPath, 'manuals')
+			uic.loadUi(os.path.join(srcPath, 'segcalc.ui'), self)
+		sys.excepthook = self.excepthook
+		self.version = VERSION
+		self.setWindowTitle(f'Segment Calcuator - Version {VERSION} - Build Date {BUILD_DATE}')
+		self.progressBar = QProgressBar()
+		self.statusBar().addPermanentWidget(self.progressBar)
+		self.setupUI()
+		self.setupConnections()
+		self.show()
+
+	def setupUI(self):
+		segments = [
+			['4', 4],
+			['6', 6],
+			['8', 8],
+			['10', 10],
+			['12', 12],
+			['16', 16],
+			['24', 24],
+			['32', 32]
+			]
+
+		for item in segments:
+			self.segmentsCB.addItem(item[0], item[1])
+
+	def setupConnections(self):
+		self.calcPB.clicked.connect(self.calcSeg)
+
+	def calcSeg(self):
+		segments = self.segmentsCB.currentData()
+		length = dec(self.lengthLE.text())
+		angleA = 180/segments
+		angleB = dec(90-angleA)
+		self.angleaLB.setText(f'{angleA:.2f}')
+		self.anglebLB.setText(f'{angleB:.2f}')
+		self.anglecLB.setText('90')
+		self.sideaLB.setText(f'{length/2:.3f}')
+		sideb = dec(length/2)*dec(tan(radians(angleB)))
+		#(B2/2)*TAN(RADIANS(B7))
+		self.sidebLB.setText(f'{sideb:.3f}')
+		# Outer Polygon Calculations
+		# angle a = 
+		# inner length = outer length-(width*tan(radian(angle a))*2
+
+	def errorMsg(self, text, title=None):
+		msgBox = QMessageBox()
+		msgBox.setIcon(QMessageBox.Warning)
+		msgBox.setWindowTitle(title)
+		msgBox.setText(text)
+		msgBox.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+		returnValue = msgBox.exec()
+		if returnValue == QMessageBox.Ok:
+			return True
+		else:
+			return False
+
+	def errorMsgOk(self, text, title=None):
+		msgBox = QMessageBox()
+		msgBox.setIcon(QMessageBox.Warning)
+		msgBox.setWindowTitle(title)
+		msgBox.setText(text)
+		msgBox.setStandardButtons(QMessageBox.Ok)
+		returnValue = msgBox.exec()
+		if returnValue == QMessageBox.Ok:
+			return True
+		else:
+			return False
+
+	def infoMsgOk(self, text, title=None):
+		msgBox = QMessageBox()
+		msgBox.setIcon(QMessageBox.Information)
+		msgBox.setWindowTitle(title)
+		msgBox.setText(text)
+		msgBox.setStandardButtons(QMessageBox.Ok)
+		returnValue = msgBox.exec()
+		if returnValue == QMessageBox.Ok:
+			return True
+		else:
+			return False
+
+	def excepthook(self, exc_type, exc_value, tb):
+		# extract the stack summary
+		summary = traceback.extract_tb(tb)
+		for frame_summary in summary:
+			filename = frame_summary.filename
+			frame_summary.filename = os.path.relpath(filename)
+
+		# rebuild the traceback and build the error message
+		msg = f'Mesact Version: {VERSION} Build Date: {BUILD_DATE}\n'
+		msg += ''.join(traceback.format_list(StackSummary.from_list(summary)))
+		msg += f'{exc_type.__name__}\n'
+		msg += f'{exc_value}\n'
+		msg += 'Please file an issue at\n'
+		msg += 'https://github.com/jethornton/mesact/issues'
+		print(msg)
+		self.errorMsgOk(msg, 'PROGRAM ERROR' )
+
+
+app = QApplication(sys.argv)
+ex = MainWindow()
+sys.exit(app.exec_())
+
+

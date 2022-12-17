@@ -1,0 +1,5 @@
+PACKAGE (VERSION) UNRELEASED; urgency=medium
+
+  * Initial release.
+
+ -- John Thornton <dev@gnipsel.com>  Sat, 17 Dec 2022 15:19:09 -0600
