@@ -10,7 +10,7 @@ from functools import partial
 from decimal import Decimal as dec
 from math import tan
 from math import radians
-
+from math import sqrt
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox,
@@ -67,6 +67,7 @@ class MainWindow(QMainWindow):
 	def calcSeg(self):
 		segments = self.segmentsCB.currentData()
 		length = dec(self.lengthLE.text())
+		width = dec(self.widthLE.text())
 		angleA = 180/segments
 		angleB = dec(90-angleA)
 		self.angleaLB.setText(f'{angleA:.2f}')
@@ -76,6 +77,10 @@ class MainWindow(QMainWindow):
 		sideb = dec(length/2)*dec(tan(radians(angleB)))
 		#(B2/2)*TAN(RADIANS(B7))
 		self.sidebLB.setText(f'{sideb:.3f}')
+		self.sidecLB.setText(f'{sqrt((length/2)+(sideb*sideb)):.3f}')
+		# B2-(C2*TAN(RADIANS(A7))*2)
+		self.innerLengthLB.setText(f'{length-dec(width*dec(tan(radians(angleA))*2)):.3f}')
+		
 		# Outer Polygon Calculations
 		# angle a = 
 		# inner length = outer length-(width*tan(radian(angle a))*2
@@ -129,7 +134,7 @@ class MainWindow(QMainWindow):
 		msg += f'{exc_type.__name__}\n'
 		msg += f'{exc_value}\n'
 		msg += 'Please file an issue at\n'
-		msg += 'https://github.com/jethornton/mesact/issues'
+		msg += 'https://github.com/jethornton/segcalc/issues'
 		print(msg)
 		self.errorMsgOk(msg, 'PROGRAM ERROR' )
 
