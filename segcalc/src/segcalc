@@ -60,30 +60,42 @@ class MainWindow(QMainWindow):
 
 		for item in segments:
 			self.segmentsCB.addItem(item[0], item[1])
+		self.lengthLE.setText('1.25')
+		self.widthLE.setText('1.5')
 
 	def setupConnections(self):
 		self.calcPB.clicked.connect(self.calcSeg)
 
 	def calcSeg(self):
 		segments = self.segmentsCB.currentData()
-		length = dec(self.lengthLE.text())
-		width = dec(self.widthLE.text())
-		angleA = 180/segments
-		angleB = dec(90-angleA)
-		self.angleaLB.setText(f'{angleA:.2f}')
-		self.anglebLB.setText(f'{angleB:.2f}')
-		self.anglecLB.setText('90')
-		self.sideaLB.setText(f'{length/2:.3f}')
-		sideb = dec(length/2)*dec(tan(radians(angleB)))
+		length = float(self.lengthLE.text())
+		width = float(self.widthLE.text())
+		outerAngleA = 180/segments
+		outerAngleB = dec(90-outerAngleA)
+		self.outerAngleaLB.setText(f'{outerAngleA:.2f}')
+		self.outerAnglebLB.setText(f'{outerAngleB:.2f}')
+		self.outerAnglecLB.setText('90')
+		self.outerSideaLB.setText(f'{length/2:.3f}')
+		sideb = length/2*tan(radians(outerAngleB))
 		#(B2/2)*TAN(RADIANS(B7))
-		self.sidebLB.setText(f'{sideb:.3f}')
-		self.sidecLB.setText(f'{sqrt((length/2)+(sideb*sideb)):.3f}')
+		self.outerSidebLB.setText(f'{sideb:.3f}')
+		self.outerSidecLB.setText(f'{sqrt((length/2)+(sideb*sideb)):.3f}')
 		# B2-(C2*TAN(RADIANS(A7))*2)
-		self.innerLengthLB.setText(f'{length-dec(width*dec(tan(radians(angleA))*2)):.3f}')
-		
-		# Outer Polygon Calculations
-		# angle a = 
-		# inner length = outer length-(width*tan(radian(angle a))*2
+		innerLength = length-(width*tan(radians(outerAngleA))*2)
+		self.innerLengthLB.setText(f'{innerLength:.3f}')
+		self.odMaxLB.setText(f'{sideb*2:.3f}')
+		innerAngleA = 180 / segments
+		self.innerAnagleaLB.setText(f'{innerAngleA:.2f}')
+		innerAngleb = 90-innerAngleA
+		self.innerAnaglebLB.setText(f'{innerAngleb:.2f}')
+		self.innerAnaglecLB.setText('90')
+		self.innerSideaLB.setText(f'{innerLength/2:.3f}')
+		innerSideb = (innerLength/2)*tan(radians(innerAngleb))
+		self.innerSidebLB.setText(f'{innerSideb:.3f}')
+		innerSidec = sqrt(((innerLength/2)*(innerLength/2)+(innerSideb*innerSideb)))
+		self.innerSidecLB.setText(f'{innerSidec:.3f}')
+		self.idMinLB.setText(f'{innerSidec*2:.3f}')
+
 
 	def errorMsg(self, text, title=None):
 		msgBox = QMessageBox()

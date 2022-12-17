@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>0</y>
       <width>341</width>
-      <height>99</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="title">
@@ -169,9 +169,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>90</y>
       <width>591</width>
-      <height>111</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="title">
@@ -239,7 +239,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="angleaLB">
+      <widget class="QLabel" name="outerAngleaLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -252,7 +252,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="anglebLB">
+      <widget class="QLabel" name="outerAnglebLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -265,7 +265,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QLabel" name="anglecLB">
+      <widget class="QLabel" name="outerAnglecLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -278,7 +278,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QLabel" name="sideaLB">
+      <widget class="QLabel" name="outerSideaLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -291,7 +291,7 @@
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="QLabel" name="sidebLB">
+      <widget class="QLabel" name="outerSidebLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -304,7 +304,160 @@
       </widget>
      </item>
      <item row="1" column="5">
-      <widget class="QLabel" name="sidecLB">
+      <widget class="QLabel" name="outerSidecLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>591</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Inner Polygon Results</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Angle A</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>Angle B</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>Angle C</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Side a</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Side b</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>Side c</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="innerAnagleaLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="innerAnaglebLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="innerAnaglecLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="innerSideaLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QLabel" name="innerSidebLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QLabel" name="innerSidecLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
