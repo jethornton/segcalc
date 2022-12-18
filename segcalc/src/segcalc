@@ -11,6 +11,7 @@ from decimal import Decimal as dec
 from math import tan
 from math import radians
 from math import sqrt
+from math import sin
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox,
@@ -48,7 +49,7 @@ class MainWindow(QMainWindow):
 
 	def setupUI(self):
 		self.segmentsLE.setText('8')
-		self.odLE.setText('4.25')
+		self.odLE.setText('5')
 		self.idLE.setText('2.5')
 
 	def setupConnections(self):
@@ -58,33 +59,44 @@ class MainWindow(QMainWindow):
 		segments = int(self.segmentsLE.text())
 		od = float(self.odLE.text())
 		id = float(self.idLE.text())
-		print(f'segments {segments} od {od} id{id}')
+		#print(f'segments {segments} od {od} id {id}')
+		A = (360 / segments) / 2
+		C = 90
+		B = C - A
+		self.outerAngleaLB.setText(f'{A:.2f}')
+		self.outerAnglebLB.setText(f'{B:.2f}')
+		self.outerAnglecLB.setText(f'{C}')
+		b = od
+		self.outerSidebLB.setText(f'{b:.2f}')
+		a = b * tan(radians(A))
+		self.outerSideaLB.setText(f'{a:.3f}')
+		c = b / sin(radians(B))
+		self.outerSidecLB.setText(f'{c:.3f}')
+		self.lengthLB.setText(f'{a * 2:.2f}')
+		self.widthLB.setText(f'{od - id:.2f}')
+
+		self.innerAnagleaLB.setText(f'{A:.2f}')
+		self.innerAnaglebLB.setText(f'{B:.2f}')
+		self.innerAnaglecLB.setText(f'{C}')
+
+		self.innerSideaLB.setText(f'{id * tan(radians(A)):.3f}')
+		self.innerSidebLB.setText(f'{id:.3f}')
+		self.innerSidecLB.setText(f'{id / sin(radians(B)):.3f}')
+
 
 		'''
 		outerAngleA = 180/segments
 		outerAngleB = dec(90-outerAngleA)
-		self.outerAngleaLB.setText(f'{outerAngleA:.2f}')
-		self.outerAnglebLB.setText(f'{outerAngleB:.2f}')
-		self.outerAnglecLB.setText('90')
-		self.outerSideaLB.setText(f'{length/2:.3f}')
 		sideb = length/2*tan(radians(outerAngleB))
 		#(B2/2)*TAN(RADIANS(B7))
-		self.outerSidebLB.setText(f'{sideb:.3f}')
-		self.outerSidecLB.setText(f'{sqrt((length/2)+(sideb*sideb)):.3f}')
 		# B2-(C2*TAN(RADIANS(A7))*2)
 		innerLength = length-(width*tan(radians(outerAngleA))*2)
 		self.innerLengthLB.setText(f'{innerLength:.3f}')
 		self.odMaxLB.setText(f'{sideb*2:.3f}')
 		innerAngleA = 180 / segments
-		self.innerAnagleaLB.setText(f'{innerAngleA:.2f}')
 		innerAngleb = 90-innerAngleA
-		self.innerAnaglebLB.setText(f'{innerAngleb:.2f}')
-		self.innerAnaglecLB.setText('90')
-		self.innerSideaLB.setText(f'{innerLength/2:.3f}')
 		innerSideb = (innerLength/2)*tan(radians(innerAngleb))
-		self.innerSidebLB.setText(f'{innerSideb:.3f}')
 		innerSidec = sqrt(((innerLength/2)*(innerLength/2)+(innerSideb*innerSideb)))
-		self.innerSidecLB.setText(f'{innerSidec:.3f}')
 		self.idMinLB.setText(f'{innerSidec*2:.3f}')
 		'''
 
