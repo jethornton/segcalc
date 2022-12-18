@@ -47,29 +47,20 @@ class MainWindow(QMainWindow):
 		self.show()
 
 	def setupUI(self):
-		segments = [
-			['4', 4],
-			['6', 6],
-			['8', 8],
-			['10', 10],
-			['12', 12],
-			['16', 16],
-			['24', 24],
-			['32', 32]
-			]
-
-		for item in segments:
-			self.segmentsCB.addItem(item[0], item[1])
-		self.lengthLE.setText('1.25')
-		self.widthLE.setText('1.5')
+		self.segmentsLE.setText('8')
+		self.odLE.setText('4.25')
+		self.idLE.setText('2.5')
 
 	def setupConnections(self):
 		self.calcPB.clicked.connect(self.calcSeg)
 
 	def calcSeg(self):
-		segments = self.segmentsCB.currentData()
-		length = float(self.lengthLE.text())
-		width = float(self.widthLE.text())
+		segments = int(self.segmentsLE.text())
+		od = float(self.odLE.text())
+		id = float(self.idLE.text())
+		print(f'segments {segments} od {od} id{id}')
+
+		'''
 		outerAngleA = 180/segments
 		outerAngleB = dec(90-outerAngleA)
 		self.outerAngleaLB.setText(f'{outerAngleA:.2f}')
@@ -95,7 +86,7 @@ class MainWindow(QMainWindow):
 		innerSidec = sqrt(((innerLength/2)*(innerLength/2)+(innerSideb*innerSideb)))
 		self.innerSidecLB.setText(f'{innerSidec:.3f}')
 		self.idMinLB.setText(f'{innerSidec*2:.3f}')
-
+		'''
 
 	def errorMsg(self, text, title=None):
 		msgBox = QMessageBox()
