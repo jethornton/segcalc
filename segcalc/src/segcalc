@@ -53,6 +53,7 @@ class MainWindow(QMainWindow):
 		self.segmentsLE.setText('8')
 		self.odLE.setText('5')
 		self.idLE.setText('2.5')
+		self.kerfLE.setText('0.125')
 
 	def setupConnections(self):
 		self.calcPB.clicked.connect(self.calcSeg)
@@ -71,21 +72,26 @@ class MainWindow(QMainWindow):
 		self.outerAnglebLB.setText(f'{B:.2f}')
 		self.outerAnglecLB.setText(f'{C}')
 		self.outerSidebLB.setText(f'{outer_radius:.2f}')
-		a = outer_radius * tan(radians(A))
-		self.outerSideaLB.setText(f'{a:.3f}')
+		outer_a = outer_radius * tan(radians(A))
+		self.outerSideaLB.setText(f'{outer_a:.3f}')
 		c = outer_radius / sin(radians(B))
 		self.outerSidecLB.setText(f'{c:.3f}')
-		self.lengthLB.setText(f'{a * 2:.2f}')
+		self.lengthLB.setText(f'{outer_a * 2:.2f}')
 		self.widthLB.setText(f'{outer_radius - inner_radius:.2f}')
 
 		self.innerAnagleaLB.setText(f'{A:.2f}')
 		self.innerAnaglebLB.setText(f'{B:.2f}')
 		self.innerAnaglecLB.setText(f'{C}')
-
-		self.innerSideaLB.setText(f'{inner_radius * tan(radians(A)):.3f}')
+		inner_a = inner_radius * tan(radians(A))
+		self.innerSideaLB.setText(f'{inner_a:.3f}')
 		self.innerSidebLB.setText(f'{inner_radius:.3f}')
 		self.innerSidecLB.setText(f'{inner_radius / sin(radians(B)):.3f}')
-
+		if self.kerfLE.text() and self.lengthLE.text():
+			outer_stock = ((segments / 2) * outer_a)
+			inner_stock = ((segments / 2) * inner_a)
+			kerfs = segments * float(self.kerfLE.text())
+			stock = outer_stock + inner_stock + kerfs
+			self.remainderLB.setText(f'{float(self.lengthLE.text()) - stock:.3f}')
 
 		'''
 		outerAngleA = 180/segments
