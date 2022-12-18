@@ -117,8 +117,31 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_20">
+       <property name="text">
+        <string>Remainder</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="lengthLB">
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="remainderLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -154,9 +177,9 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="label_20">
+      <widget class="QLabel" name="label_21">
        <property name="text">
-        <string>Remainder</string>
+        <string>Material</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -164,7 +187,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QLabel" name="remainderLB">
+      <widget class="QLabel" name="materialLB">
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>

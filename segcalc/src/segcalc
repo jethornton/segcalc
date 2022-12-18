@@ -87,10 +87,11 @@ class MainWindow(QMainWindow):
 		self.innerSidebLB.setText(f'{inner_radius:.3f}')
 		self.innerSidecLB.setText(f'{inner_radius / sin(radians(B)):.3f}')
 		if self.kerfLE.text() and self.lengthLE.text():
-			outer_stock = ((segments / 2) * outer_a)
-			inner_stock = ((segments / 2) * inner_a)
+			outer_stock = ((segments / 2) * (outer_a * 2))
+			inner_stock = ((segments / 2) * (inner_a * 2))
 			kerfs = segments * float(self.kerfLE.text())
 			stock = outer_stock + inner_stock + kerfs
+			self.materialLB.setText(f'{stock:.3f}')
 			self.remainderLB.setText(f'{float(self.lengthLE.text()) - stock:.3f}')
 
 		'''
